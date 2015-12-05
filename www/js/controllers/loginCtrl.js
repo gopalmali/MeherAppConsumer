@@ -4,10 +4,19 @@
 angular.module('starter.controllers')
 
     .controller('loginCtrl', function($scope, $ionicPopup, $timeout, $window, $location, $cordovaSms,$http, $cordovaDevice,$ionicPlatform,$cordovaSQLite) {
-        $scope.loginData={};
-        window.db;
+      var options = {
+        replaceLineBreaks: false, // true to replace \n by a new line, false by default
+        android: {
+          //intent: '' // send SMS with the native android SMS messaging
+          //intent: '' // send SMS without open any other app
+          intent: 'INTENT' // send SMS inside a default SMS app
+        }
+      };
+
+
+      window.db;
         $scope.loginData = {};
-        $scope.loginData.deviceId = window.localStorage['deviceID'];
+        $scope.loginData.deviceId = window.localStorage['MeherDeviceId'];
         $scope.loginData.opt = null;
         $scope.orderPost = JSON.parse(window.localStorage['orderPost']);
         $scope.cartMsg = JSON.parse(window.localStorage['currentOrder']);
@@ -93,6 +102,7 @@ angular.module('starter.controllers')
                 },
                 function (response) { // optional
                     // failed
+                  alert(JSON.stringify(response))
                     console.log(response);
                 });
 

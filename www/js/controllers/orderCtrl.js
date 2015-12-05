@@ -29,7 +29,7 @@ angular.module('starter.controllers')
         });
 
         $scope.checkLocalDB = function () {
-            if (window.localStorage['MeherUser'])
+            if (JSON.parse(window.localStorage['MeherUser']))
                 alert("before checking go user" + window.localStorage['MeherUser']);
             var query = "SELECT * FROM Meher_user WHERE addLine2 = ?";
             $cordovaSQLite.execute(db, query, $scope.formData.userSublocality).then(function (result) {
@@ -157,7 +157,7 @@ angular.module('starter.controllers')
                 //}
                 if (true) {
                     var query = "SELECT * FROM Meher_user WHERE deviceId = ?";
-                    $cordovaSQLite.execute(db, query, [window.localStorage['deviceID']]).then(function (result) {
+                    $cordovaSQLite.execute(db, query, [window.localStorage['MeherDeviceId']]).then(function (result) {
                         if (result.rows.length > 0) {
                             window.localStorage['MeherUser'] = JSON.stringify(result.rows.item(0));
                             window.localStorage['MeherMobile'] = JSON.stringify(result.rows.item(0).mobile);
@@ -265,7 +265,7 @@ angular.module('starter.controllers')
             };
 
             $scope.orderPost.customer = {
-                devceId: window.localStorage['deviceID'],
+                deviceId: window.localStorage['MeherDeviceId'],
                 addLine1: $scope.formData.userAddress,
                 addLine2: $scope.formData.userSublocality
             };

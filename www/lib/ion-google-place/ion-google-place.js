@@ -119,19 +119,19 @@ angular.module('ion-google-place', [])
                       cordova.plugins.diagnostic.switchToLocationSettings(function(){
                         scope.setCurrentLocation();
                       }, function(error){
-                        alert("Error Occurred !")
+                        alert("Error Occurred !"+error)
                       });
                     }
                     else{
                       cordova.plugins.diagnostic.switchToSettings(function(){
                         scope.setCurrentLocation();
                       }, function(error){
-                        alert("Error Occurred !")
+                        alert("Error Occurred !" + error)
                       });
                     }
                   }
                 }, function(error){
-                  alert("Error Occurred !")
+                  alert("Error Occurred !" +error)
                 });
                 //alert("got here !")
                 //window.subLocality = null;
