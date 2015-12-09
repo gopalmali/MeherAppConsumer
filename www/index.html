@@ -21,6 +21,7 @@
 
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
+     <script src="lib/ionic-pullup/dist/ion-pullup.js"></script>
 
 
     <!-- cordova script (this will be a 404 during development) -->
@@ -69,7 +70,7 @@
   <body ng-app="starter" ng-controller="LoadCtrl">
   <ion-nav-view></ion-nav-view>
 
-  <ion-footer-bar align-title="left" class="bar-light" ng-if="cartList.length > 0">
+<!--  <ion-footer-bar align-title="left" class="bar-light" ng-if="cartList.length > 0">
     <div class="buttons">
       <a class="button icon ion-ios-cart-outline" href="#/app/order">
         <span id="cart-badge" class="badge badge-assertive">{{cartList.length}}</span>
@@ -77,16 +78,91 @@
     </div>
     <span class="title price" ng-if="currentPath  !== '/app/order'">
     <b>{{cartList[cartList.length-1].name | limitTo:10}}</b>
-    <span style="color: #aaa;font-size: 12px;
-"><i>just added</i></span>
-    </span>    <!--<h1 class="title price" >{{grandTotal}}</h1>-->
+    <span style="color: #aaa;font-size: 12px;"><i>just added</i></span>
+    </span>
     <div class="buttons">
       <a class="button icon-right ion-arrow-right-c button-positive" href="#/app/order" ng-if="currentPath  !== '/app/order'">Order Now</a>
     </div>
     <div class="buttons pull-right">
       <button class="button icon-right ion-arrow-right-c button-balanced" ng-click="composeSMS()" ng-if="currentPath  === '/app/order'">Place Order</button>
     </div>
-  </ion-footer-bar>
+  </ion-footer-bar> -->
+  <ion-pull-up-footer class=" bar-energized" on-expand="footerExpand()" on-collapse="footerCollapse()"  ng-if="cartList.length > 0">
+    <ion-pull-up-handle width="100" height="25" toggle="ion-chevron-up ion-chevron-down" style="border-radius: 25px 25px 0 0">
+      <i class="icon ion-chevron-up"></i>
+    </ion-pull-up-handle>
+    <ion-pull-up-bar>
+      <h1 class="title" ion-pull-up-trigger>Tap here</h1>
+      <div class="buttons">
+        <a class="button icon-right ion-arrow-right-c button-positive" href="#/app/order" ng-if="currentPath  !== '/app/order'">Order Now</a>
+      </div>
+      <div class="buttons pull-right">
+        <button class="button icon-right ion-arrow-right-c button-balanced" ng-click="composeSMS()" ng-if="currentPath  === '/app/order'">Place Order</button>
+      </div>
+    </ion-pull-up-bar>
+    <ion-pull-up-content scroll="false">
+      <div class="list card">
+        <div class="item item-divider">Recent Updates</div>
+        <div class="item item-body">
+
+          <ion-list id="product-list" class=" cartorder" show-delete="showDelete">
+            <!--<div class="cart-order-list">-->
+            <ion-scroll style="max-height: 200px">
+              <ion-item id="order-itemList" class="item-remove-animate" ng-repeat="(key, product) in cartList track by $index" >
+
+                <div class="col hyphenate" style="white-space: normal;" ng-class="(showDelete ? 'col-66' : '')">
+                  <div ng-class="(product.quantity ? 'shit-top' : '')">
+                    {{x= $index+1}}) {{product.name}}
+                  </div>
+                </div>
+
+                <div class="col col-50 text-center" ng-if="product.customQuantity">
+                  {{product.customQuantity}}
+                </div>
+
+                <div class="col col-50 text-center" ng-if="product.quantity && !showDelete" >
+
+                  <!--<a class="button button-icon icon positive ion-ios-minus-outline" ng-click="decreaseQuantity(product)"></a>-->
+                  <!--{{product.quantity}}-->
+                  <!--<a class="button button-icon icon positive ion-ios-plus-outline" ng-click="increaseQuantity(product)"></a>-->
+                  <!--<br/>-->
+                  <!--<span class="item-note">-->
+                  <!--{{product.unit}}-->
+                  <!--</span>-->
+                  <a class="button button-icon icon positive ion-ios-minus-outline" ng-click="decreaseQuantity(product)" style="padding-right: 2px!important;"></a>
+                  {{product.quantity}}
+                  <a class="button button-icon icon positive ion-ios-plus-outline" ng-click="increaseQuantity(product)" style="padding-right: 2px!important;"></a>
+                <span style="display: block;color: #aaa;font-size: 14px; text-align: center; margin-top: -12px">
+                {{product.unit}}
+                </span>
+
+                </div>
+
+                <div class="col col-10 text-center" style="margin-top: 10px;">
+                  {{product.price || "- -"}}
+                </div>
+                <ion-delete-button class="ion-minus-circled"
+                                   ng-click="onDeleteItem(product,key)">
+                </ion-delete-button>
+
+              </ion-item>
+            </ion-scroll>
+            <!--</div>-->
+
+            <div class="row" id="order-header">
+              <div class="col">
+                <span class="price-text">*Estimate price undisclosed to store</span>
+              </div>
+              <div class="col col-30 text-right">
+                <b>Total:</b> {{cartTotal | number:0}}
+              </div>
+            </div>
+
+          </ion-list>
+        </div>
+      </div>
+    </ion-pull-up-content>
+  </ion-pull-up-footer>
 
   </body>
 

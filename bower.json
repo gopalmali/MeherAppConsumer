@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "ion-google-place": "~0.0.1",
-    "ngSticky": "~1.7.11"
+    "ngSticky": "~1.7.11",
+    "ionic-pullup": "~1.0.3"
   }
 }
