@@ -1,17 +1,19 @@
-<ion-view view-title="Delivery">
+<ion-view view-title="Order Status">
   <ion-content>
-    <div class="row" id="order-header">
-      <div class="col text-center">
-        <b>Order Status</b>
-      </div>
+    <div class="row item item-divider">
+      <span class="col text-center">Order Status  </span>
     </div>
+    <!-- <div class="row" id="order-header">
+       <div class="col text-center">
+         <b>Order Status</b>
+       </div>
+     </div> -->
 
     <div id="status-icon" class="row">
       <div class="col">
         <ul class="four steps">
           <li class="complete">
-            <a href="#0"><i class="ion-ios-compose" style="
-    margin-left: 2px;"></i></a>
+            <a href="#0"><i class="ion-ios-compose" style="margin-left: 2px;"></i></a>
           </li>
           <li class="complete">
             <a href="#0"><i class="ion-clipboard"></i></a>
@@ -29,7 +31,7 @@
 
     <div id="status-title"class="row">
       <div class="col">Order Sent</div>
-      <div class="col">Confirming</div>
+      <div class="col">Accepted</div>
       <div class="col">On the way</div>
       <div class="col">Delivered</div>
     </div>
@@ -47,6 +49,76 @@
           <button class="button icon-right button-block ion-arrow-swap ion-ios-cart button-assertive">Shift Cart/ Change Store</button>
         </div>
       </div>
+
+      <div class="row item item-divider">
+        <span class="col text-center">Order Status  </span>
+      </div>
+      <form>
+        <div class="list">
+          <!--  <label class="item item-toggle">
+              <span class="input-label">Order Delivered in Time??</span>
+              <label class="toggle toggle-assertive">
+                <input type="checkbox">
+                <div class="track">
+                  <div class="handle"></div>
+                </div>
+              </label>
+              </input>
+            </label> -->
+          <label class="item item-toggle">
+            <span class="input-label">Delivered in Time <b>{{timelyDeliverStatus}}</b></span>
+            <!--<span class="input-label" ng-show="gogo">Yes</span> -->
+            <label class="toggle toggle-balanced">
+              <input type="checkbox" ng-model="feedbackData.timelyDeliver" ng-change="changeDeliveryTime(feedbackData.timelyDeliver)">
+              <div class="track">
+                <div class="handle"></div>
+              </div>
+            </label>
+            </input>
+          </label>
+
+          <label class="item item-toggle">
+            <span class="input-label">Product Quality <b>{{productQualityStatus}}</b></span>
+            <!--<span class="input-label" ng-show="gogo">Yes</span> -->
+            <label class="toggle toggle-balanced">
+              <input type="checkbox" ng-model="feedbackData.quality" ng-change="changeProductQuality(feedbackData.quality)">
+              <div class="track">
+                <div class="handle"></div>
+              </div>
+            </label>
+            </input>
+          </label>
+
+          <label class="item item-input item-stacked-label">
+            <span class="input-label">Rate store</span>
+            <span style="float: right;padding-right: 30px;"><b>{{feedbackData.rating}} Star</b></span>
+            <div class=" range range-positive" >
+              <i class="icon ion-thumbsdown" style="color: #AAA"></i>
+              <input type="range" min="0" max="5" step="1" ng-model="feedbackData.rating">
+              <i class="icon ion-thumbsup energized"></i>
+            </div>
+          </label>
+
+
+          <!--   <label class="item item-input" ng-show="gogo">
+               <span class="input-label" ng-show="gogo">Yes</span>
+             </label>  -->
+
+          <div class="row item">
+            <div class="col col-50 text-left">
+              <button class="button button-block button-positive" ng-click="showPopup()">Comment</button>
+            </div>
+
+            <div class="col col-50 text-right">
+              <button class="button button-block button-balanced">Sendfeedback</button>
+            </div>
+          </div>
+
+        </div>
+
+      </form>
+
+    </div>
 
     </div>
 
