@@ -26,6 +26,38 @@ angular.module('starter.controllers')
         window.open('tel:'+tel)
       };
 
+
+      $scope.$on('someEvent', function(event,productItem)
+
+      {
+       // alert(JSON.stringify(productItem.name));
+       //$scope.checkExisting();
+        $scope.practice(productItem);
+
+
+      });
+
+      $scope.practice=function(productItem){
+        $scope.currentObj =productItem ;
+        console.log( '************');
+        console.log( $scope.currentObj);
+       var existingItems = $scope.productCatalog[$ionicSlideBoxDelegate.selected()].products;
+        var i;
+        for (i = 0; i < existingItems.length; i++) {
+          if ($scope.currentObj.$$hashKey == existingItems[i].$$hashKey) {
+            alert("matched")
+            console.log($scope.currentObj)
+            $scope.productCatalog[$ionicSlideBoxDelegate.selected()].products[i].ordernow = false;
+            break;
+          }
+        }
+
+        };
+
+      $scope.untick = function(obj) {
+        alert("lets utick first")
+      };
+
       $scope.$watchCollection('cartItems', function(newValue, oldValue) {
         if (newValue !== oldValue)
         {
@@ -104,7 +136,7 @@ angular.module('starter.controllers')
         for (i = 0; i < existingItems.length; i++) {
           for (j = 0; j < $scope.cartItems.length; j++) {
             $scope.productCatalog[$ionicSlideBoxDelegate.selected()].products[i].ordernow = false;
-            if ($scope.cartItems[j].name == existingItems[i].name) {
+            if ($scope.cartItems[j].$$hashKey == existingItems[i].$$hashKey) {
               $scope.productCatalog[$ionicSlideBoxDelegate.selected()].products[i].ordernow = true;
               break;
             }
@@ -112,7 +144,9 @@ angular.module('starter.controllers')
         }
       };
 
+
       $scope.addToCart = function(productItem,checkStatus,index) {
+        console.log(productItem);
         if(checkStatus){
           console.log("adding");
           $scope.cartItems.push(productItem);

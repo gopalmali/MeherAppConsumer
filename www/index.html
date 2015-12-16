@@ -53,6 +53,7 @@
     <script src="js/factory/store-data.js"></script>
 
 
+
     <!--Best Push Notification -->
 <!--
     <script type="text/javascript" src="lib/plugin/PushCustom.js"></script>
@@ -102,63 +103,31 @@
     </ion-pull-up-bar>
     <ion-pull-up-content scroll="false">
       <div class="list card">
-        <div class="item item-divider">Recent Updates</div>
+        <div class="item item-divider">Current Order</div>
         <div class="item item-body">
-
-          <ion-list id="product-list" class=" cartorder" show-delete="showDelete">
-            <!--<div class="cart-order-list">-->
-            <ion-scroll style="max-height: 200px">
-              <ion-item id="order-itemList" class="item-remove-animate" ng-repeat="(key, product) in cartList track by $index" >
-
-                <div class="col hyphenate" style="white-space: normal;" ng-class="(showDelete ? 'col-66' : '')">
-                  <div ng-class="(product.quantity ? 'shit-top' : '')">
-                    {{x= $index+1}}) {{product.name}}
-                  </div>
-                </div>
-
-                <div class="col col-50 text-center" ng-if="product.customQuantity">
-                  {{product.customQuantity}}
-                </div>
-
-                <div class="col col-50 text-center" ng-if="product.quantity && !showDelete" >
-
-                  <!--<a class="button button-icon icon positive ion-ios-minus-outline" ng-click="decreaseQuantity(product)"></a>-->
-                  <!--{{product.quantity}}-->
-                  <!--<a class="button button-icon icon positive ion-ios-plus-outline" ng-click="increaseQuantity(product)"></a>-->
-                  <!--<br/>-->
-                  <!--<span class="item-note">-->
-                  <!--{{product.unit}}-->
-                  <!--</span>-->
-                  <a class="button button-icon icon positive ion-ios-minus-outline" ng-click="decreaseQuantity(product)" style="padding-right: 2px!important;"></a>
-                  {{product.quantity}}
-                  <a class="button button-icon icon positive ion-ios-plus-outline" ng-click="increaseQuantity(product)" style="padding-right: 2px!important;"></a>
-                <span style="display: block;color: #aaa;font-size: 14px; text-align: center; margin-top: -12px">
-                {{product.unit}}
-                </span>
-
-                </div>
-
-                <div class="col col-10 text-center" style="margin-top: 10px;">
-                  {{product.price || "- -"}}
-                </div>
-                <ion-delete-button class="ion-minus-circled"
-                                   ng-click="onDeleteItem(product,key)">
-                </ion-delete-button>
-
-              </ion-item>
-            </ion-scroll>
-            <!--</div>-->
-
-            <div class="row" id="order-header">
-              <div class="col">
-                <span class="price-text">*Estimate price undisclosed to store</span>
-              </div>
-              <div class="col col-30 text-right">
-                <b>Total:</b> {{cartTotal | number:0}}
-              </div>
+          <div class="row" ng-repeat="demo in demos">
+            <div class="col col-40">
+              <span>{{demo.name}}</span>
             </div>
+            <div class="col col-40">
+                <a class="item item-icon-left item-icon-right" href="#">
+                  <i class="icon positive ion-ios-minus-outline" ng-click="decreaseQuantity(demo)"></i>
+                  {{demo.quantity}}
+                  <i class="icon positive ion-ios-plus-outline" ng-click="increaseQuantity(demo)"></i>
+                </a>
+                </div>
+            <div class="col col-20">{{demo.price}}</div>
+          </div>
 
-          </ion-list>
+          <div class="row" id="order-header">
+            <div class="col">
+              <span class="price-text">*Estimate price undisclosed to store</span>
+            </div>
+            <div class="col col-30 text-right">
+              <b>Total:</b> {{cartTotal | number:0}}
+            </div>
+          </div>
+
         </div>
       </div>
     </ion-pull-up-content>

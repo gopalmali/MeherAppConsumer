@@ -1,6 +1,145 @@
 angular.module('starter.controllers', [])
 
-    .controller('LoadCtrl', function($scope, $cordovaPush, $cordovaDialogs, $cordovaMedia, $cordovaToast, ionPlatform, $http,CartData,$location,$cordovaDevice,$state,$rootScope) {
+    .controller('LoadCtrl', function($scope, $cordovaPush, $cordovaDialogs, $cordovaMedia, $cordovaToast, ionPlatform, $http,CartData,$location,$cordovaDevice,$state,$rootScope,$ionicPopup) {
+
+
+
+
+
+
+     // $scope.demo="hi";
+
+      $scope.demos=CartData.getCart();
+      $scope.cartItems = CartData.getCart();
+      $scope.delete=function(){
+        alert('you have delete item')
+      }
+      $scope.showConfirm = function(productItem) {
+
+        var confirmPopup = $ionicPopup.confirm({
+
+          title: 'Conformation',
+
+          template: 'are you sure you want to delete',
+
+        });
+
+        //alert(JSON.stringify(productItem));
+        confirmPopup.then(function(res) {
+
+          if (res) {
+            var index = $scope.demos.indexOf(productItem);
+            if (index != -1) {
+            $scope.demos.splice(index, 1);
+             //CartData.removeCart($scope.productItem);
+            }
+
+
+            $scope.$broadcast('someEvent', productItem);
+
+            console.log('You clicked on "OK" button');
+
+          } else {
+
+            console.log('You clicked on "Cancel" button');
+
+          }
+
+        });
+
+      };
+
+
+      $scope.increaseQuantity = function (productItem) {
+        if (productItem.quantity > 1) {
+          productItem.price = productItem.price + (productItem.price / productItem.quantity);
+          productItem.quantity = productItem.quantity + 1;
+        }
+        else {
+          productItem.quantity = productItem.quantity + 1;
+          productItem.price = productItem.price * productItem.quantity;
+        }
+        $scope.updateCart(productItem)
+      };
+
+      $scope.decreaseQuantity = function (productItem) {
+        if (productItem.quantity > 1) {
+          productItem.price = productItem.price - (productItem.price / productItem.quantity);
+          productItem.quantity = productItem.quantity - 1;
+          $scope.updateCart(productItem)
+        }
+        else{
+          $scope.showConfirm(productItem);
+        }
+      };
+
+      $scope.updateCart = function (productItem) {
+        $scope.cartItems = $scope.cartItems.filter(function (obj) {
+          //console.log(obj);
+          if (obj.name == productItem.name) {
+            console.log(obj);
+            obj.quantity = productItem.quantity;
+            obj.price = productItem.price;
+          }
+          return obj;
+        });
+        console.log($scope.cartItems);
+        CartData.copyCart($scope.cartItems);
+        $scope.cartTotal = $scope.getCartTotal();
+      };
+
+      $scope.$watchCollection('cartItems', function (newValue, oldValue) {
+        if (newValue !== oldValue) {
+          console.log("watch triggered !!");
+          CartData.setCart(newValue);
+          $scope.cartTotal = $scope.getCartTotal();
+        }
+      });
+
+
+
+
+      $scope.getCartTotal = function () {
+        var total = 0;
+        console.log($scope.cartItems);
+        //CartData.setCart($scope.cartItems)
+        angular.forEach($scope.cartItems, function (item) {
+          console.log(item);
+          if ($scope.cartItems.length > 0 && item.price)
+            total = total + (item.price);
+          else
+            total = 0
+        })
+        return total;
+      };
+
+      $scope.cartTotal = $scope.getCartTotal();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       $scope.notifications = [];
       $scope.cartList=CartData.getCart();
       $scope.grandTotal;
