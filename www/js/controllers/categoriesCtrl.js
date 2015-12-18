@@ -4,6 +4,9 @@
 angular.module('starter.controllers')
 
     .controller('CategoriesCtrl', function($scope,$location,$http) {
+      $scope.checkOrder=function(){
+
+      }
       $scope.categorylists = [];
       $scope.categoryTemp = [];
       $scope.categoryTemp = [

@@ -215,6 +215,7 @@ angular.module('starter.controllers')
             }).then(function (response) {
                     // success
                     alert("orderSentToServe");
+                  window.localStorage['orderPost'] = JSON.stringify($scope.orderPost);
                     console.log(response);
                 },
                 function (response) { // optional

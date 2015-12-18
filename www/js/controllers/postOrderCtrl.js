@@ -19,6 +19,7 @@
 angular.module('starter.controllers')
 
     .controller('postOrderCtrl', function($scope, $http, $stateParams,CartData,StoreData, $ionicPopup) {
+      $scope.order= JSON.parse(window.localStorage['orderPost'] || '{}');
 
       $scope.feedbackData={
         "timelyDeliver":true,
@@ -29,22 +30,48 @@ angular.module('starter.controllers')
       $scope.timelyDeliverStatus="Yes";
       $scope.productQualityStatus="Awesome";
 
+      $scope.commentData=function(){
+        $scope.order.feedback = $scope.feedbackData;
+        console.log($scope.order);
+        console.log($scope.feedbackData);
+      };
+
       $scope.showPopup = function() {
-        $ionicPopup.prompt({
+        var promptPopup=$ionicPopup.prompt({
           title: 'Comment',
           template: 'Comment Here',
           inputType:'textbox',
           inputPlaceholder:'Type your comment here'
 
         });
-        confirmPopup.then(function(res) {
+        promptPopup.then(function(res) {
           if(res) {
-            console.log('You are sure');
+            $scope.commentData();
+            $scope.makePopup();
+
           } else {
             console.log('You are not sure');
           }
         });
       };
+
+      $scope.makePopup = function() {
+        var promptPopup=$ionicPopup.confirm({
+          title: 'Comment',
+          template: 'Your feedback is sent',
+
+
+        });
+        promptPopup.then(function(res) {
+          if(res) {
+           // console.log($scope.commit());
+            //$scope.comment();
+          } else {
+            console.log('You are not sure');
+          }
+        });
+      };
+
       $scope.changeDeliveryTime=function(u){
 
         if(u==true)
@@ -65,6 +92,12 @@ angular.module('starter.controllers')
           $scope.productQualityStatus="Average";
         }
       }
+
+      $scope.buttonClicked = function(index){
+        $scope.selectedIndex = index;
+        $scope.$apply();
+      }
+
       $scope.cartItems = CartData.getCart();
       $scope.StoreSelected = StoreData.getStore();
       $scope.CallTel = function(tel) {

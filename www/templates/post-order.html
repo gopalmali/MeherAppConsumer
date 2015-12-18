@@ -51,7 +51,7 @@
       </div>
 
       <div class="row item item-divider">
-        <span class="col text-center">Order Status  </span>
+        <span class="col text-center">Order FeedBack</span>
       </div>
       <form>
         <div class="list">
@@ -65,33 +65,62 @@
               </label>
               </input>
             </label> -->
-          <label class="item item-toggle">
-            <span class="input-label">Delivered in Time <b>{{timelyDeliverStatus}}</b></span>
+          <!--<label class="item item-toggle">-->
+            <!--<span class="input-label">Delivered in Time <b>{{selectedIndex}}</b></span>-->
             <!--<span class="input-label" ng-show="gogo">Yes</span> -->
-            <label class="toggle toggle-balanced">
-              <input type="checkbox" ng-model="feedbackData.timelyDeliver" ng-change="changeDeliveryTime(feedbackData.timelyDeliver)">
-              <div class="track">
-                <div class="handle"></div>
+            <!--<label class="toggle toggle-balanced">-->
+              <!--<input type="checkbox" ng-model="feedbackData.timelyDeliver" ng-change="changeDeliveryTime(feedbackData.timelyDeliver)">-->
+              <!--<div class="track">-->
+                <!--<div class="handle"></div>-->
+              <!--</div>-->
+            <!--</label>-->
+            <!--</input>-->
+          <div class="row item">
+            <div>
+              <span class="input-label">Timely Delivery?</span>
               </div>
-            </label>
-            </input>
-          </label>
+            <div class="col">
+            <ti-segmented-control on-select="buttonClicked($index)">
+              <ti-segmented-control-button class="button-balanced" title="'On Time'" selected></ti-segmented-control-button>
+              <ti-segmented-control-button class="button-assertive" title="'Late'"></ti-segmented-control-button>
+            </ti-segmented-control>
+              </div>
+            </div>
+          <!--</label>-->
 
-          <label class="item item-toggle">
-            <span class="input-label">Product Quality <b>{{productQualityStatus}}</b></span>
+          <!--<label class="item item-toggle">-->
+            <!--<span class="input-label">Product Quality {{selectedIndex}}</span>-->
             <!--<span class="input-label" ng-show="gogo">Yes</span> -->
-            <label class="toggle toggle-balanced">
-              <input type="checkbox" ng-model="feedbackData.quality" ng-change="changeProductQuality(feedbackData.quality)">
-              <div class="track">
-                <div class="handle"></div>
+            <!--<label class="toggle toggle-balanced">-->
+              <!--<input type="checkbox" ng-model="feedbackData.quality" ng-change="changeProductQuality(feedbackData.quality)">-->
+              <!--<div class="track">-->
+                <!--<div class="handle"></div>-->
+              <!--</div>-->
+            <!--</label>-->
+            <!--</input>-->
+            <div class="row item">
+              <div>
+                <span class="input-label">Product Quality</span>
+                </div>
+              <div class="col col-70">
+            <ti-segmented-control on-select="buttonClicked($index)">
+              <ti-segmented-control-button class="button-assertive" title="'Bad'"></ti-segmented-control-button>
+              <ti-segmented-control-button class="button-energized" title="'Good'" selected></ti-segmented-control-button>
+              <ti-segmented-control-button class="button-balanced" title="'Great'"></ti-segmented-control-button>
+            </ti-segmented-control>
+                </div>
               </div>
-            </label>
-            </input>
-          </label>
+          <!--</label>-->
 
           <label class="item item-input item-stacked-label">
             <span class="input-label">Rate store</span>
-            <span style="float: right;padding-right: 30px;"><b>{{feedbackData.rating}} Star</b></span>
+
+            <span style="float: right;padding-right: 30px;"><b>{{feedbackData.rating}} Star</b>
+             <!--<span id="count">-->
+              <!--<i class="icon ion-star"></i>-->
+             <!--</span>-->
+            </span>
+
             <div class=" range range-positive" >
               <i class="icon ion-thumbsdown" style="color: #AAA"></i>
               <input type="range" min="0" max="5" step="1" ng-model="feedbackData.rating">
@@ -110,10 +139,9 @@
             </div>
 
             <div class="col col-50 text-right">
-              <button class="button button-block button-balanced">Sendfeedback</button>
+              <button class="button button-block button-balanced" ng-click="makePopup()">Sendfeedback</button>
             </div>
           </div>
-
         </div>
 
       </form>
@@ -124,3 +152,6 @@
 
   </ion-content>
 </ion-view>
+
+
+

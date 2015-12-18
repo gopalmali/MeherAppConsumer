@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','ngCordova','greatCircles','ion-google-place','ionic-pullup'])
+var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','ngCordova','greatCircles','ion-google-place','ionic-pullup','ti-segmented-control'])
 
     .run(function($ionicPlatform,$state) {
       $ionicPlatform.ready(function() {
@@ -151,7 +151,7 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.se
       //});
 
       // if none of the above states are matched, use this as the fallback
-      $urlRouterProvider.otherwise('/app/categories');
+      $urlRouterProvider.otherwise('/app/postorder');
       //$urlRouterProvider.otherwise('/app/login');
     });
 
